@@ -49,6 +49,7 @@ class ExceptionConverter
     private function convertException(\Exception $ex)
     {
         $data = array(
+            'type' => get_class($ex),
             'message' => $ex->getMessage(),
             'code' => $ex->getCode(),
             'trace' => array(),
