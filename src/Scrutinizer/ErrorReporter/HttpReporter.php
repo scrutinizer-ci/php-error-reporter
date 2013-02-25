@@ -18,7 +18,7 @@
 
 namespace Scrutinizer\ErrorReporter;
 
-use Guzzle\Service\Client;
+use Guzzle\Http\ClientInterface;
 use Scrutinizer\ErrorReporter\Converter\ExceptionConverter;
 
 /**
@@ -34,7 +34,7 @@ class HttpReporter implements ReporterInterface
     private $processName;
     private $converter;
 
-    public function __construct(Client $client, $uri, $machineName = null, $processName = null, ExceptionConverter $converter = null)
+    public function __construct(ClientInterface $client, $uri, $machineName = null, $processName = null, ExceptionConverter $converter = null)
     {
         $this->client = $client;
         $this->uri = $uri;
