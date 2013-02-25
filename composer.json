@@ -1,0 +1,14 @@
+{
+    "name": "scrutinizer/error-reporter",
+    "description": "Reports exceptions to a processing server for further inspection.",
+
+    "autoload": {
+        "psr-0": {
+            "Scrutinizer\\": "src/"
+        }
+    },
+
+    "require": {
+        "guzzle/guzzle": "3.*"
+    }
+}
