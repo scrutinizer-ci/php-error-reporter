@@ -26,7 +26,7 @@ class ExceptionConverter
     public function __construct($basePath = '')
     {
         $this->basePath = $basePath;
-        $this->basePathLength = strlen($this->basePath);
+        $this->basePathLength = empty($basePath) ? 0 : (strlen($this->basePath) + 1);
     }
 
     /**
@@ -82,7 +82,7 @@ class ExceptionConverter
             }
 
             $data['trace'][] = array(
-                'file' => $filePath,
+                'path' => $filePath,
                 'line' => isset($trace['line']) ? (integer) $trace['line'] : null,
                 'class_name' => $className,
                 'method_name' => $methodName,
@@ -138,21 +138,23 @@ class ExceptionConverter
         $newArr = array();
 
         foreach ($arr as $k => $v) {
-            if (null === $v || is_scalar($v)) {
-                $newArr[$k] = $v;
+            if (null === $v) {
+                $newArr[$k] = 'null';
+            } elseif (null === $v || is_scalar($v)) {
+                $newArr[$k] = gettype($v).'('.$v.')';
             } elseif (is_array($v)) {
                 $newArr[$k] = $this->sanitizeArray($v);
             } elseif (is_resource($v)) {
-                $newArr[$k] = 'resource: '.get_resource_type($v);
+                $newArr[$k] = 'resource('.get_resource_type($v).')';
             } elseif (is_object($v)) {
                 $str = get_class($v);
                 if (method_exists($v, '__toString')) {
                     $str .= ': '.$v;
                 }
 
-                $newArr[$k] = $str;
+                $newArr[$k] = 'object('.$str.')';
             } else {
-                $newArr[$k] = 'unknown value';
+                $newArr[$k] = 'unknown('.gettype($v).')';
             }
         }
 
