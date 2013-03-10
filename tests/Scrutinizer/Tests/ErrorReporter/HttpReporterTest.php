@@ -23,6 +23,7 @@ class HttpReporterTest extends \PHPUnit_Framework_TestCase
         $this->client->expects($this->once())
             ->method('post')
             ->with('uri/path', array('Content-Type' => 'application/json'), json_encode(array(
+                'revision' => 'abcdef',
                 'machine_name' => 'foo',
                 'process_name' => 'bar',
                 'exceptions' => array()
@@ -42,6 +43,7 @@ class HttpReporterTest extends \PHPUnit_Framework_TestCase
         $this->reporter = new HttpReporter(
             $this->client = $this->getMock('Guzzle\Http\ClientInterface'),
             'uri/path',
+            'abcdef',
             'foo',
             'bar',
             $this->converter = $this->getMock('Scrutinizer\ErrorReporter\Converter\ExceptionConverter')

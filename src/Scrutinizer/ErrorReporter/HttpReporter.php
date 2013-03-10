@@ -30,14 +30,16 @@ class HttpReporter implements ReporterInterface
 {
     private $client;
     private $uri;
+    private $revision;
     private $machineName;
     private $processName;
     private $converter;
 
-    public function __construct(ClientInterface $client, $uri, $machineName = null, $processName = null, ExceptionConverter $converter = null)
+    public function __construct(ClientInterface $client, $uri, $revision = null, $machineName = null, $processName = null, ExceptionConverter $converter = null)
     {
         $this->client = $client;
         $this->uri = $uri;
+        $this->revision = $revision;
         $this->machineName = $machineName;
         $this->processName = $processName;
         $this->converter = $converter ?: new ExceptionConverter();
@@ -46,6 +48,7 @@ class HttpReporter implements ReporterInterface
     public function reportException(\Exception $ex)
     {
         $data = array(
+            'revision' => $this->revision,
             'machine_name' => $this->machineName,
             'process_name' => $this->processName,
             'exceptions' => $this->converter->convert($ex),
