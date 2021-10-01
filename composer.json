@@ -9,7 +9,7 @@
     },
 
     "require": {
-        "guzzle/guzzle": "3.*",
-        "psr/log": "1.*"
+        "psr/log": "1.*",
+        "guzzlehttp/guzzle": "^7.3"
     }
 }

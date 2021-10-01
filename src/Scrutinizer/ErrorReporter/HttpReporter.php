@@ -18,7 +18,7 @@
 
 namespace Scrutinizer\ErrorReporter;
 
-use Guzzle\Http\ClientInterface;
+use GuzzleHttp\ClientInterface;
 use Scrutinizer\ErrorReporter\Converter\ExceptionConverter;
 
 /**
@@ -28,7 +28,7 @@ use Scrutinizer\ErrorReporter\Converter\ExceptionConverter;
  */
 class HttpReporter implements ReporterInterface
 {
-    private $client;
+    private ClientInterface $client;
     private $uri;
     private $revision;
     private $machineName;
@@ -54,6 +54,11 @@ class HttpReporter implements ReporterInterface
             'exceptions' => $this->converter->convert($ex),
         );
 
-        $this->client->post($this->uri, array('Content-Type' => 'application/json'), json_encode($data))->send();
+        $this->client->request('POST', $this->uri, array(
+            'headers' => array(
+                'Content-Type' => 'application/json',
+            ),
+            'json' => $data,
+        ));
     }
 }
