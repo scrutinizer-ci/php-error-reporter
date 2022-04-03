@@ -19,11 +19,11 @@ class ErrorSuppressingReporter implements ReporterInterface
         $this->logger = $logger ?: new NullLogger();
     }
 
-    public function reportException(\Exception $ex)
+    public function reportException(\Throwable $ex)
     {
         try {
             $this->delegate->reportException($ex);
-        } catch (\Exception $nestedEx) {
+        } catch (\Throwable $nestedEx) {
             try {
                 $this->logger->error('Exception "{nestedMessage}" occurred while reporting the exception "{message}".', array(
                     'nestedMessage' => $nestedEx->getMessage(),

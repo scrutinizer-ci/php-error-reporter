@@ -26,5 +26,5 @@ interface ReporterInterface
      * @param \Exception $ex
      * @return void
      */
-    public function reportException(\Exception $ex);
+    public function reportException(\Throwable $ex);
 }

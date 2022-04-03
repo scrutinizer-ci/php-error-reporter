@@ -4,7 +4,7 @@ namespace Scrutinizer\ErrorReporter;
 
 class NullReporter implements ReporterInterface
 {
-    public function reportException(\Exception $ex)
+    public function reportException(\Throwable $ex)
     {
     }
 }

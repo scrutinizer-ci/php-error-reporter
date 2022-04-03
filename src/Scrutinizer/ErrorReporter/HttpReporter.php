@@ -45,7 +45,7 @@ class HttpReporter implements ReporterInterface
         $this->converter = $converter ?: new ExceptionConverter();
     }
 
-    public function reportException(\Exception $ex)
+    public function reportException(\Throwable $ex)
     {
         $data = array(
             'revision' => $this->revision,
